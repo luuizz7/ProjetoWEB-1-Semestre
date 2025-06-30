@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <link rel="stylesheet" href="style.css"/>
+  <title>FlexSite</title>
+</head>
+<body>
+
+  <div class="switch" id="toggleTheme">
+    <div class="slider"></div>
+  </div>
+
+  <input type="checkbox" id="menuToggle" hidden>
+  
+  <header>
+    <label for="menuToggle" class="menu-toggle">&#9776;</label>
+    <h1>FlexSite</h1>
+    <nav>
+      <ul>
+        <li><a href="#">Início</a></li>
+        <li><a href="#">Sobre</a></li>
+        <li><a href="#">Projetos</a></li>
+        <li><a href="#">Contato</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <nav class="side-menu">
+    <ul>
+      <li><a href="#">Início</a></li>
+      <li><a href="#">Sobre</a></li>
+      <li><a href="#">Projetos</a></li>
+      <li><a href="#">Contato</a></li>
+    </ul>
+  </nav>
+
+  <main>
+    <h2>Bem-vindo ao FlexSite</h2>
+    <p>Um site totalmente montado com Flexbox</p>
+
+  <section class="todo-section">
+    <h3>Lista de Tarefas</h3>
+    <input type="text" id="taskInput" placeholder="Digite uma tarefa..." />
+    <button id="addTaskBtn">Adicionar</button>
+    <button id="highlightBtn">Destacar Prioritária</button>
+    <ul id="taskList"></ul>
+  </section>
+
+    <div class="cards">
+
+    </div>
+  </main>
+
+
+  <footer>
+    <p>&copy; 2025 FlexSite Todos os direitos reservados</p>
+  </footer>
+
+
+  <script src="script.js"></script>
+
+</body>
+</html>

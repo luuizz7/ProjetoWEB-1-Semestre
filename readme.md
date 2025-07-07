@@ -1,4 +1,4 @@
-x# Biblioteca Pessoal Virtual 📚
+# Biblioteca Pessoal Virtual 📚
 
 Bem-vindo à **Biblioteca Pessoal Virtual**! Esta é uma aplicação web elegante e funcional, construída com HTML, CSS e JavaScript, que permite criar e gerenciar sua própria coleção de livros. Com ela, você pode salvar os livros que já leu, com anotações, e também os que deseja ler.
 

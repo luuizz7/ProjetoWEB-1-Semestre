@@ -1,9 +1,10 @@
-// Aguarda o carregamento completo do DOM
+// espera a página carregar para começar a rodar o código
 document.addEventListener('DOMContentLoaded', () => {
 
-    // --- ROTEAMENTO E AUTENTICAÇÃO ---
+    //verificação e login
+    // esta parte verifica se o usuário ta logado
+    // se não estiver ele manda dnv para a tela de login
     const paginaAtual = document.body.id;
-  
     if (paginaAtual === 'app') {
         if (!localStorage.getItem('usuarioLogado')) {
             window.location.href = 'login.html';
@@ -16,20 +17,23 @@ document.addEventListener('DOMContentLoaded', () => {
   
   });
   
-  // --- LÓGICA DA PÁGINA DE LOGIN ---
+  // pagina de login
   function inicializarLogin() {
     const loginForm = document.getElementById('login-form');
     const cadastroFormBtn = document.getElementById('btn-cadastrar');
   
+    // quando o usuário tenta entrar
     loginForm.addEventListener('submit', (e) => {
         e.preventDefault();
         const email = document.getElementById('email').value;
         const senha = document.getElementById('senha').value;
         
+        // pega os usuários salvos no navegador e procura um que seja compatível com o email e senha
         const usuarios = JSON.parse(localStorage.getItem('usuarios')) || [];
         const usuario = usuarios.find(u => u.email === email && u.senha === senha);
   
         if (usuario) {
+            // se encontrar o usuário salva que ele está logado e vai para a página principal
             localStorage.setItem('usuarioLogado', JSON.stringify(usuario));
             window.location.href = 'index.html';
         } else {
@@ -37,6 +41,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
   
+    // função para quando o usuário se cadastra
     cadastroFormBtn.addEventListener('click', () => {
         const nome = document.getElementById('cadastro-nome').value;
         const email = document.getElementById('cadastro-email').value;
@@ -54,6 +59,7 @@ document.addEventListener('DOMContentLoaded', () => {
             return;
         }
   
+        // importante: aqui o novo usuário e sua biblioteca são salvos no navegador (localstorage)
         usuarios.push({ nome, email, senha });
         localStorage.setItem('usuarios', JSON.stringify(usuarios));
         
@@ -70,7 +76,8 @@ document.addEventListener('DOMContentLoaded', () => {
   }
   
   
-  // --- LÓGICA DA PÁGINA PRINCIPAL (APP) ---
+  // tela principal
+  // esta função inicia tudo na página principal
   function inicializarApp() {
     listarLivros();
     atualizarCarrossel();
@@ -84,8 +91,10 @@ document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('filtro-lidos').addEventListener('change', () => listarLivros());
   }
   
-  // --- Funções de Livros ---
+  // funcao dos livros
   
+  // estas duas funcoes pegam e salvam a lista de livros no navegador
+  // elas permitem que cada usuário só veja os seus próprios livros (localstorage)
   function getLivrosDoUsuario() {
     const usuarioLogado = JSON.parse(localStorage.getItem('usuarioLogado'));
     if (!usuarioLogado) return [];
@@ -101,6 +110,7 @@ document.addEventListener('DOMContentLoaded', () => {
     localStorage.setItem('bibliotecas', JSON.stringify(bibliotecas));
   }
   
+  // funcao para salvar um livro novo ou editado
   function salvarLivro() {
     const titulo = document.getElementById('titulo').value;
     const autor = document.getElementById('autor').value;
@@ -118,22 +128,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const livro = { titulo, autor, ano, genero, imagemUrl, lido: false, anotacao: '' };
   
     if (index === '') {
+        // se não tem index é um livro novo
         livros.push(livro);
     } else {
+        // se tem um index está editando um livro existente
         livro.lido = livros[index].lido;
         livro.anotacao = livros[index].anotacao;
         livros[index] = livro;
     }
   
+    // salva a lista de livros atualizada e redesenha a tela
     setLivrosDoUsuario(livros);
     listarLivros();
     atualizarCarrossel();
     bootstrap.Modal.getInstance(document.getElementById('modalLivro')).hide();
   }
   
+  // ela pega a lista de livros e cria o html de cada card para mostrar na tela
   function listarLivros() {
     const container = document.getElementById('listaLivros');
-    container.innerHTML = '';
+    container.innerHTML = ''; // limpa a lista antes de adicionar os livros de novo
     const livros = getLivrosDoUsuario();
     const filtroLidos = document.getElementById('filtro-lidos').checked;
   
@@ -144,6 +158,7 @@ document.addEventListener('DOMContentLoaded', () => {
         return;
     }
   
+    //  cada livro na lista cria um card de html e insere na página
     livrosFiltrados.forEach((livro) => {
         const originalIndex = livros.findIndex(l => l === livro);
         const card = document.createElement('div');
@@ -165,6 +180,7 @@ document.addEventListener('DOMContentLoaded', () => {
             <button class="btn btn-sm btn-outline-success" onclick="abrirModalAnotacao(${originalIndex})"><i class="bi bi-check-circle"></i> Marcar como Lido</button>
         `;
   
+        // html do card do livro
         card.innerHTML = `
             <div class="card h-100">
                 ${livro.imagemUrl ? `<img src="${livro.imagemUrl}" class="card-img-top" alt="Capa de ${livro.titulo}" style="height: 200px; object-fit: cover;" onerror="this.src='https://placehold.co/400x200/cccccc/ffffff?text=Sem+Imagem'">` : ''}
@@ -188,11 +204,11 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
   
+  //atualiza as imagens que aparecem no carrossel do topo
   function atualizarCarrossel() {
     const carouselInner = document.getElementById('carousel-livros-inner');
     const carouselElement = document.getElementById('carousel-header');
   
-    // Destrói qualquer instância anterior do carrossel para evitar conflitos
     const existingInstance = bootstrap.Carousel.getInstance(carouselElement);
     if (existingInstance) {
       existingInstance.dispose();
@@ -215,9 +231,8 @@ document.addEventListener('DOMContentLoaded', () => {
             carouselInner.appendChild(item);
         });
   
-        // Cria uma nova instância do carrossel com o intervalo desejado
         new bootstrap.Carousel(carouselElement, {
-          interval: 5000, // 5 segundos
+          interval: 5000,
           ride: 'carousel'
         });
   
@@ -342,6 +357,7 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
   
+  // função para sair da conta
   function logout() {
     localStorage.removeItem('usuarioLogado');
     window.location.href = 'login.html';

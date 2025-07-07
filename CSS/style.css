@@ -1,11 +1,11 @@
-/* Estilos Gerais e da Página Principal */
+/* estilos gerais e da página principal */
 body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   background-color: #f8f9fa;
 }
 
 #app {
-  padding-top: 56px; /* Altura da navbar */
+  padding-top: 56px; /* altura da navbar */
 }
 
 .card {
@@ -14,6 +14,7 @@ body {
   border-radius: 0.5rem;
 }
 
+/* esta parte cria a animação de levantar o card quando o mouse passa por cima */
 .card:hover {
   transform: translateY(-5px);
   box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
@@ -28,9 +29,9 @@ footer {
   padding: 20px 0;
 }
 
-/* Estilos do Carrossel */
+/* estilos do carrossel */
 #carousel-header {
-background-color: #212529; /* Define um fundo escuro para o carrossel, evitando o "flash" branco */
+background-color: #212529;
 }
 
 .carousel-item img {
@@ -48,13 +49,13 @@ background-color: #212529; /* Define um fundo escuro para o carrossel, evitando 
   padding: 1rem;
 }
 
-/* Efeito de transição mais suave para o carrossel */
 .carousel-item {
-/* Aumenta a duração da transição do 'fade' para 1.2 segundos */
 transition: opacity 1.2s ease-in-out;
 }
 
-/* Estilos da Página de Login */
+/*página de login */
+
+
 .login-body {
   background: linear-gradient(135deg, #ece9e6 0%, #ffffff 100%);
 }

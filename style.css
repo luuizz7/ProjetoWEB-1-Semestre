@@ -63,8 +63,3 @@ transition: opacity 1.2s ease-in-out;
   border: none;
   border-radius: 1rem;
 }
-
-/* Estrelas de avaliação */
-.rating-stars .bi {
-  font-size: 1.2rem;
-}

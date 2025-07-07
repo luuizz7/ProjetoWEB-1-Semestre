@@ -10,7 +10,6 @@
 </head>
 <body id="app">
 
-    <!-- Navbar -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top">
         <div class="container-fluid">
             <a class="navbar-brand" href="#"><i class="bi bi-book-half"></i> Biblioteca</a>
@@ -27,11 +26,9 @@
         </div>
     </nav>
 
-    <!-- Carrossel Dinâmico com Efeito Fade -->
-    <header id="carousel-header" class="carousel slide carousel-fade" data-bs-ride="carousel">
+    <header id="carousel-header" class="carousel slide carousel-fade">
         <div class="carousel-inner" id="carousel-livros-inner">
-            <!-- Slides serão inseridos aqui pelo JS -->
-        </div>
+            </div>
         <button class="carousel-control-prev" type="button" data-bs-target="#carousel-header" data-bs-slide="prev">
             <span class="carousel-control-prev-icon" aria-hidden="true"></span>
             <span class="visually-hidden">Anterior</span>
@@ -42,14 +39,12 @@
         </button>
     </header>
 
-    <!-- Conteúdo Principal -->
     <main class="container mt-5 mb-5" id="livros">
         <div class="d-flex justify-content-between align-items-center mb-4">
             <h2>Meus Livros</h2>
             <button class="btn btn-primary" onclick="abrirModalLivro()"><i class="bi bi-plus-circle"></i> Adicionar Livro</button>
         </div>
         
-        <!-- Filtros de Consulta -->
         <div class="btn-group mb-4" role="group" aria-label="Filtro de livros">
             <input type="radio" class="btn-check" name="filtro-livros" id="filtro-nao-lidos" autocomplete="off" checked>
             <label class="btn btn-outline-primary" for="filtro-nao-lidos">Não Lidos</label>
@@ -58,13 +53,10 @@
             <label class="btn btn-outline-secondary" for="filtro-lidos">Lidos</label>
         </div>
 
-        <!-- Lista de Livros -->
         <div id="listaLivros" class="row">
-            <!-- Cards de livros serão inseridos aqui pelo JS -->
-        </div>
+            </div>
     </main>
 
-    <!-- Modal de Livros (Adicionar/Editar) -->
     <div class="modal fade" id="modalLivro" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
@@ -103,7 +95,28 @@
         </div>
     </div>
 
-    <!-- Modal do Perfil do Utilizador -->
+    <div class="modal fade" id="modalAnotacao" tabindex="-1">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">Minha Anotação sobre o Livro</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <div class="modal-body">
+                    <input type="hidden" id="anotacao-livro-index">
+                    <div class="form-floating">
+                        <textarea class="form-control" placeholder="O que você achou do livro?" id="anotacao-texto" style="height: 150px"></textarea>
+                        <label for="anotacao-texto">O que você achou do livro?</label>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancelar</button>
+                    <button type="button" class="btn btn-primary" onclick="salvarAnotacao()">Salvar Anotação</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
     <div class="modal fade" id="modalPerfil" tabindex="-1">
         <div class="modal-dialog">
             <div class="modal-content">
